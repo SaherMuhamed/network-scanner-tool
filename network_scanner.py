@@ -1,3 +1,4 @@
+import time
 import requests
 import scapy.all as scapy
 from prettytable import PrettyTable
@@ -16,6 +17,7 @@ def get_argument():
 
 def get_mac_vendor(mac_address):
     url = f"https://api.macvendors.com/{mac_address}"
+    time.sleep(1)
     response = requests.get(url=url)
     if response.status_code == 200:
         return response.content.decode("UTF-8")
@@ -39,6 +41,7 @@ def scanning(ip_address):
 
     # TODO 4: Send Packets & Receive Responses.
     answered_list, unanswered_list = scapy.srp(broadcast_arp_packets, timeout=3, verbose=False)
+    time.sleep(1)
     # print(answered_list.summary())
     # print(unanswered_list.summary())
 
