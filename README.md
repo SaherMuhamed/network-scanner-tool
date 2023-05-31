@@ -27,7 +27,8 @@ The script generates a table displaying the following information for each disco
 - IP address
 - MAC address
 - Hostname or vendor information (obtained from an API)
-Example output:
+
+#### Example output:
 
 ```text
 +-----+--------------+-------------------+-------------------------+
@@ -37,5 +38,4 @@ Example output:
 | 1   | 192.168.1.2  | 00:50:56:c0:00:08 | VMware                  |
 | 2   | 192.168.1.10 | 00:0c:29:2b:55:0e | Dell                    |
 +-----+--------------+-------------------+-------------------------+
-
 ```
