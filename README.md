@@ -9,7 +9,7 @@ pip install scapy requests prettytable progress
 ```
 
 ### Screenshot
-![](screenshots/2023-05-31 21_26_16-Command Prompt.png)
+![screenshots/2023-05-31 21_26_16-Command Prompt.png](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/2023-05-31%2021_26_16-Command%20Prompt.png))
 
 ### Usage
 1. Clone the repository or download the script to your local machine.
