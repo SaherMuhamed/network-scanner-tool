@@ -12,7 +12,7 @@ pip install scapy requests prettytable progress
 - For Windows:
 ![screenshots/2023-05-31 21_26_16-Command Prompt.png](screenshots/2023-05-31%2021_26_16-Command%20Prompt.png)
 - For Linux:
-![](screenshots/linux.gif)
+![screenshots/linux.gif](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/linux.gif)
 ### Usage
 1. Clone the repository or download the script to your local machine.
 2. Open a terminal or command prompt and navigate to the directory where the script is located.
