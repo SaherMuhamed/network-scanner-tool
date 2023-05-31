@@ -1,4 +1,4 @@
-# Network Device Scanner
+# Network Scanner
 This Python script allows you to scan a network and discover devices within a specified IP range. It uses Scapy, a powerful packet manipulation library, to send ARP request packets and capture responses from devices in the network. The script retrieves the IP address, MAC address, and hostname or vendor information for each discovered device.
 
 ### Prerequisites
