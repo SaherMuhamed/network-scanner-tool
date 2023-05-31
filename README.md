@@ -8,6 +8,9 @@ This Python script allows you to scan a network and discover devices within a sp
 pip install scapy requests prettytable progress
 ```
 
+### Screenshot
+![](screenshots/2023-05-31 21_20_25-Command Prompt.png)
+
 ### Usage
 1. Clone the repository or download the script to your local machine.
 2. Open a terminal or command prompt and navigate to the directory where the script is located.
