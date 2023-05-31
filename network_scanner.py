@@ -55,9 +55,11 @@ for device in answered_devices:
     bar.next()
 
 bar.finish()
-print(f"{table}\nCompleted.")
 
 if option.output_file:
     with open(option.output_file, "w") as f:
         f.write(str(table))
-        print(f"[+] Output saved to {option.output_file}")
+        print(f"{table}\nCompleted.")
+        print(f"[+] Output saved to {option.output_file}\n")
+else:
+    print(f"{table}\nCompleted.\n")
