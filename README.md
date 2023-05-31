@@ -9,7 +9,7 @@ pip install scapy requests prettytable progress
 ```
 
 ### Screenshot
-![](screenshots/2023-05-31 21_20_25-Command Prompt.png)
+![](screenshots/2023-05-31 21_26_16-Command Prompt.png)
 
 ### Usage
 1. Clone the repository or download the script to your local machine.
