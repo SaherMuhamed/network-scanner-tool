@@ -21,24 +21,15 @@ def get_argument():
 def scan_network(ip_address):
     # TODO 1: Create an ARP Request.
     arp_request = scapy.ARP(pdst=ip_address)
-    # print(arp_request.summary())
-    # print(arp_request.show())
-    # scapy.ls(scapy.ARP())
 
     # TODO 2: Broadcast an ARP Packets to all Devices in the Network.
     broadcast_packets = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
-    # print(broadcast_packets.summary())
-    # scapy.ls(scapy.Ether())
 
     # TODO 3: Combining these 2 Packets together to Send.
     broadcast_arp_packets = broadcast_packets / arp_request
-    # broadcast_arp_packets.show()
 
     # TODO 4: Start Send These Packets to all Devices.
-    # answered_device, unanswered_device = scapy.srp(x=broadcast_arp_packets, timeout=3, verbose=False)
     answered_device = scapy.srp(x=broadcast_arp_packets, timeout=3, verbose=False)[0]
-    # print(answered_device.summary())
-    # print(unanswered_device.summary())
 
     return answered_device
 
