@@ -1,20 +1,20 @@
 # Network Scanner
 This Python script allows you to scan a network and discover devices within a specified IP range. It uses Scapy, a powerful packet manipulation library, to send ARP request packets and capture responses from devices in the network. The script retrieves the IP address, MAC address, and hostname or vendor information for each discovered device.
 
-### Prerequisites
+## Prerequisites
 - Python 3.x
 - Required Python packages can be installed using the following command:
 ```commandline
 pip install scapy requests prettytable progress
 ```
 
-### Screenshot
+## Screenshot
 - For Windows:
 ![screenshots/windows.png](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/windows.png)</br></br>
 - For Linux:
 ![screenshots/linux.gif](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/linux.gif)
 
-### Usage
+## Usage
 1. Clone the repository or download the script to your local machine.
 2. Open a terminal or command prompt and navigate to the directory where the script is located.
 3. Run the script with the following command:
@@ -26,7 +26,7 @@ python3 network_device_scanner.py --range <IP_range> [--write <output_file>]
 6. The script will start scanning the network, displaying a progress bar and printing the discovered devices' information to the console.
 7. If the --write or -w option is provided, the output table will be saved to the specified file.
 
-### Output
+## Output
 The script generates a table displaying the following information for each discovered device:
 
 - Device number
@@ -34,7 +34,7 @@ The script generates a table displaying the following information for each disco
 - MAC address
 - Hostname or vendor information (obtained from an API)
 
-#### Example output:
+## Example output:
 
 ```text
 +-----+--------------+-------------------+-------------------------+
