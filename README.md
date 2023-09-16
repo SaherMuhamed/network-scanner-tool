@@ -26,7 +26,6 @@ python3 network_device_scanner.py --range <IP_range>
 ## Output
 The script generates a table displaying the following information for each discovered device:
 
-- Device number
 - IP address
 - MAC address
 - Hostname or vendor information (obtained from an API)
