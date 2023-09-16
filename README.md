@@ -5,7 +5,7 @@ This Python script allows you to scan a network and discover devices within a sp
 - Python 3.x
 - Required Python packages can be installed using the following command:
 ```commandline
-pip install scapy requests prettytable progress
+pip install scapy requests
 ```
 
 ## Screenshot
@@ -19,12 +19,9 @@ pip install scapy requests prettytable progress
 2. Open a terminal or command prompt and navigate to the directory where the script is located.
 3. Run the script with the following command:
 ```commandline
-python3 network_device_scanner.py --range <IP_range> [--write <output_file>]
+python3 network_device_scanner.py --range <IP_range>
 ```
 4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.0/24.
-5. Optional: Specify the --write or -w flag followed by an <output_file> name to save the output to a text file.
-6. The script will start scanning the network, displaying a progress bar and printing the discovered devices' information to the console.
-7. If the --write or -w option is provided, the output table will be saved to the specified file.
 
 ## Output
 The script generates a table displaying the following information for each discovered device:
@@ -37,11 +34,9 @@ The script generates a table displaying the following information for each disco
 ## Example output:
 
 ```text
-+-----+--------------+-------------------+-------------------------+
-| No. | IP Address   | MAC Address       | Hostname / Vendor       |
-+-----+--------------+-------------------+-------------------------+
-| 0   | 192.168.1.1  | 00:0c:29:78:9c:44 | Cisco Systems           |
-| 1   | 192.168.1.2  | 00:50:56:c0:00:08 | VMware                  |
-| 2   | 192.168.1.10 | 00:0c:29:2b:55:0e | Dell                    |
-+-----+--------------+-------------------+-------------------------+
+___________________________________________________________________
+    IP		   MAC Address		     Hostname / Vendor
+-------------------------------------------------------------------
+192.168.1.3	14:eb:b6:xx:xx:xx	TP-Link Corporation Limited
+192.168.1.1	8c:0d:76:xx:xx:xx	HUAWEI TECHNOLOGIES CO.,LTD
 ```
