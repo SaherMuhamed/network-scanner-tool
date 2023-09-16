@@ -1,65 +1,45 @@
+#!/usr/bin/env python3
+
+import sys
 import time
 import requests
+from argparse import ArgumentParser
 import scapy.all as scapy
-from optparse import OptionParser
-from prettytable import PrettyTable
-from progress.bar import IncrementalBar
+
+if sys.version_info < (3, 0):
+    sys.stderr.write("\nYou need python 3.0 or later to run this script\n")
+    sys.stderr.write(
+        "Please update and make sure you use the command python3 network_scanner.py -r <ip/24>\n\n")
+    sys.exit(0)
 
 
-def get_argument():
-    parser = OptionParser()
-    parser.add_option("-r", "--range", dest="ip_range", help="Specify an IP Address range for your Subnet Mask. "
-                                                             "Example: --range 192.168.1.1/24")
-    parser.add_option("-w", "--write", dest="output_file", help="Specify the output file name to save the result (optional)")
-    (options, arguments) = parser.parse_args()
+def args():
+    parser = ArgumentParser()
+    parser.add_argument("-r", "--range", dest="ip_range", help="Specify an ip address range. Example: "
+                                                               "--range 192.168.1.1/24")
+    options = parser.parse_args()
     if not options.ip_range:
-        parser.error("[-] Please specify an IP range, or type it correctly, ex: --range 192.168.1.1/24")
-
+        parser.error(message="[-] Please specify valid ip address range, or type it correctly, ex: ---range "
+                             "192.168.1.1/24")
     return options
 
 
 def scan_network(ip_address):
-    # TODO 1: Create an ARP Request.
-    arp_request = scapy.ARP(pdst=ip_address)
+    arp_request = scapy.ARP(pdst=ip_address)  # create an ARP request
+    broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")  # broadcast an ARP packets to all devices in the network
+    broadcast_arp_packets = broadcast / arp_request  # combining these 2 packets together to send
 
-    # TODO 2: Broadcast an ARP Packets to all Devices in the Network.
-    broadcast_packets = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
-
-    # TODO 3: Combining these 2 Packets together to Send.
-    broadcast_arp_packets = broadcast_packets / arp_request
-
-    # TODO 4: Start Send These Packets to all Devices.
-    answered_device = scapy.srp(x=broadcast_arp_packets, timeout=3, verbose=False)[0]
-
-    return answered_device
+    ans, unans = scapy.srp(broadcast_arp_packets, timeout=2, verbose=False)  # send packets to all devices
+    return ans[0]  # return answered devices only
 
 
-device_no = 0
-table = PrettyTable()
-option = get_argument()
+option = args()
+devices = scan_network(ip_address=option.ip_range)
 
-print("\nStart Scanning...")
-answered_devices = scan_network(ip_address=option.ip_range)
-bar = IncrementalBar(max=len(answered_devices), suffix='%(percent).1f%% - eta: %(eta)ds')
-
-table.field_names = ["No.", "IP Address", "MAC Address", "Hostname / Vendor"]
-for device in answered_devices:
-    response = requests.get(url=f"https://api.macvendors.com/{device[1].hwsrc}", timeout=2)
-    time.sleep(0.9)
-    table.add_rows(
-        [
-            [device_no, device[1].psrc, device[1].hwsrc, response.text]
-        ]
-    )
-    device_no += 1
-    bar.next()
-
-bar.finish()
-
-if option.output_file:
-    with open(option.output_file, "w") as f:
-        f.write(str(table))
-        print(f"{table}\nCompleted.")
-        print(f"[+] Output saved to {option.output_file}\n")
-else:
-    print(f"{table}\nCompleted.\n")
+print("\n___________________________________________________________________")
+print("    IP\t\t   MAC Address\t\t     Hostname / Vendor")
+print("-------------------------------------------------------------------")
+for device in devices:
+    response = requests.get(url="https://api.macvendors.com/" + device[1].hwsrc)
+    time.sleep(1)
+    print(device[1].psrc + "\t" + device[1].hwsrc + "\t" + response.text)
