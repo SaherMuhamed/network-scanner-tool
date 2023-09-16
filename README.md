@@ -21,7 +21,7 @@ pip install scapy requests
 ```commandline
 python3 network_device_scanner.py --range <IP_range>
 ```
-4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.0/24.
+4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.1/24.
 
 ## Output
 The script generates a table displaying the following information for each discovered device:
