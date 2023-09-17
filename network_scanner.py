@@ -41,5 +41,5 @@ print("    IP\t\t   MAC Address\t\t     Hostname / Vendor")
 print("-------------------------------------------------------------------")
 for device in devices:
     response = requests.get(url="https://api.macvendors.com/" + device[1].hwsrc)
-    time.sleep(1)
+    time.sleep(1)  # slow down the requests to api
     print(device[1].psrc + "\t" + device[1].hwsrc + "\t" + response.text)
