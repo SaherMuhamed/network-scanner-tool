@@ -12,7 +12,7 @@ pip install scapy requests
 - For Windows:
 ![screenshots/windows.png](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/windows.png)</br></br>
 - For Linux:
-![screenshots/Screenshot%20from%202023-09-17%2014-26-10.png]([https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/linux.gif](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%20from%202023-09-17%2014-26-10.png)
+![screenshots/Screenshot from 2023-09-17 14-26-10.png]([https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/linux.gif](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%20from%202023-09-17%2014-26-10.png)
 
 ## Usage
 1. Clone the repository or download the script to your local machine.
