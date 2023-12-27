@@ -39,7 +39,11 @@ def scan_network(ip_address, timeout=7):
     for sent_packet, received_packet in answered:
         # check if the packet contains an ARP layer
         if scapy.ARP in received_packet:
-            device_info = {"ip": received_packet[scapy.ARP].psrc, "mac": received_packet[scapy.Ether].src}
+            device_info = {
+                "ip": received_packet[scapy.ARP].psrc, 
+                "mac": received_packet[scapy.Ether].src, 
+                "packet_size": len(received_packet)
+            }  # get the size of the packet
             devices_list.append(device_info)
 
     return devices_list
@@ -55,14 +59,14 @@ def get_details():
 option = args()
 get_details()
 x = PrettyTable(border=True, hrules=HEADER, vrules=NONE)
-x.field_names = ["IP", "MAC Address", "Hostname / Vendor"]
+x.field_names = ["IP", "MAC Address", "Size", "Hostname / Vendor"]
 devices = scan_network(ip_address=option.ip_range)
 
 for device in devices:
     # response = requests.get(url="https://api.macvendors.com/" + device["mac"])  # old api call
     response = requests.get(url="https://www.macvendorlookup.com/api/v2/" + device["mac"], timeout=7)
     time.sleep(0.7)  # slow down the requests to api
-    x.add_rows([[device["ip"], device["mac"], response.json()[0]["company"]]])
+    x.add_rows([[device["ip"], device["mac"], device["packet_size"], response.json()[0]["company"]]])
 print(x.get_string(
     sortby="IP") + "\n")  # print table with ascending order ex. 192.168.1.1, 192.168.1.2, .., 192.168.1.254
 print("---------------------")
