@@ -2,7 +2,9 @@
 
 import sys
 import time
+import datetime as dt
 import requests
+from prettytable import PrettyTable, HEADER, NONE
 from argparse import ArgumentParser
 import scapy.all as scapy
 
@@ -24,22 +26,45 @@ def args():
     return options
 
 
-def scan_network(ip_address):
+def scan_network(ip_address, timeout=7):
     arp_request = scapy.ARP(pdst=ip_address)  # create an ARP request
-    broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")  # broadcast an ARP packets to all devices in the network
-    broadcast_arp_packets = broadcast / arp_request  # combining these 2 packets together to send
+    broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")  # broadcast an ARP packet to all devices in the network
+    broadcast_arp_packets = broadcast / arp_request  # combine these 2 packets together to send
 
-    ans, unans = scapy.srp(broadcast_arp_packets, timeout=2, verbose=False)  # send packets to all devices
-    return ans[0]  # return answered devices only
+    answered, unanswered = scapy.srp(broadcast_arp_packets, timeout=timeout,
+                                     verbose=False)  # send packets to all devices
+
+    # extracting information from answered packets
+    devices_list = []
+    for sent_packet, received_packet in answered:
+        # check if the packet contains an ARP layer
+        if scapy.ARP in received_packet:
+            device_info = {"ip": received_packet[scapy.ARP].psrc, "mac": received_packet[scapy.Ether].src}
+            devices_list.append(device_info)
+
+    return devices_list
+
+
+def get_details():
+    print("\n---------------------")
+    print("Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
+    print("Target subnet   : " + option.ip_range)
+    print("---------------------\n")
 
 
 option = args()
+get_details()
+x = PrettyTable(border=True, hrules=HEADER, vrules=NONE)
+x.field_names = ["IP", "MAC Address", "Hostname / Vendor"]
 devices = scan_network(ip_address=option.ip_range)
 
-print("\n___________________________________________________________________")
-print("    IP\t\t   MAC Address\t\t     Hostname / Vendor")
-print("-------------------------------------------------------------------")
 for device in devices:
-    response = requests.get(url="https://api.macvendors.com/" + device[1].hwsrc)
-    time.sleep(1)  # slow down the requests to api
-    print(device[1].psrc + "\t" + device[1].hwsrc + "\t" + response.text)
+    # response = requests.get(url="https://api.macvendors.com/" + device["mac"])  # old api call
+    response = requests.get(url="https://www.macvendorlookup.com/api/v2/" + device["mac"], timeout=7)
+    time.sleep(0.7)  # slow down the requests to api
+    x.add_rows([[device["ip"], device["mac"], response.json()[0]["company"]]])
+print(x.get_string(
+    sortby="IP") + "\n")  # print table with ascending order ex. 192.168.1.1, 192.168.1.2, .., 192.168.1.254
+print("---------------------")
+print("Summary         : " + str(len(devices)) + " captured ARP Req/Res packets from " + str(
+    len(devices)) + " hosts" + " \nFinished!\n")
