@@ -8,11 +8,11 @@ This Python script allows you to scan a network and discover devices within a sp
 pip install scapy requests
 ```
 
-## Screenshot
+## Screenshots
 - For Windows:
-![screenshots/windows.png](https://github.com/SaherMuhamed/network-scanner-python/blob/master/screenshots/windows.png)</br></br>
+![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-windows.png)</br></br>
 - For Linux:
-![screenshots/Screenshot from 2023-09-17 14-26-10.png](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%20from%202023-09-17%2014-26-10.png)
+![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-linux.png)
 
 ## Usage
 1. Clone the repository or download the script to your local machine.
@@ -33,9 +33,18 @@ The script generates a table displaying the following information for each disco
 ## Example output:
 
 ```text
-___________________________________________________________________
-    IP		   MAC Address		     Hostname / Vendor
--------------------------------------------------------------------
-192.168.1.3	14:eb:b6:xx:xx:xx	TP-Link Corporation Limited
-192.168.1.1	8c:0d:76:xx:xx:xx	HUAWEI TECHNOLOGIES CO.,LTD
+---------------------
+Start time      : 27/12/2023 15:53:44 PM
+Target subnet   : 192.168.152.1/24
+---------------------
+
+         IP            MAC Address      Hostname / Vendor  
+-----------------------------------------------------------
+   192.168.152.1    00:50:56:xx:xx:xx      VMware, Inc.    
+   192.168.152.2    00:50:56:xx:xx:xx      VMware, Inc.    
+  192.168.152.254   00:50:56:xx:xx:xx      VMware, Inc.    
+
+---------------------
+Summary         : 3 captured ARP Req/Res packets from 3 hosts 
+Finished!
 ```
