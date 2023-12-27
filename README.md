@@ -48,3 +48,5 @@ Target subnet   : 192.168.152.1/24
 Summary         : 3 captured ARP Req/Res packets from 3 hosts 
 Finished!
 ```
+### Updates
+`v1.0.1 - 27/12/2023`
