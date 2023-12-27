@@ -28,25 +28,28 @@ The script generates a table displaying the following information for each disco
 
 - IP address
 - MAC address
+- Size of each packet (bytes)
 - Hostname or vendor information (obtained from an API)
 
 ## Example output:
 
 ```text
 ---------------------
-Start time      : 27/12/2023 15:53:44 PM
+Start time      : 27/12/2023 16:28:28 PM
 Target subnet   : 192.168.152.1/24
 ---------------------
 
-         IP            MAC Address      Hostname / Vendor  
------------------------------------------------------------
-   192.168.152.1    00:50:56:xx:xx:xx      VMware, Inc.    
-   192.168.152.2    00:50:56:xx:xx:xx      VMware, Inc.    
-  192.168.152.254   00:50:56:xx:xx:xx      VMware, Inc.    
+         IP            MAC Address      Size   Hostname / Vendor  
+------------------------------------------------------------------
+   192.168.152.1    00:50:56:xx:xx:xx    60       VMware, Inc.    
+  192.168.152.129   00:0c:29:xx:xx:xx    60       VMware, Inc.    
+  192.168.152.135   00:0c:29:xx:xx:xx    60       VMware, Inc.    
+   192.168.152.2    00:50:56:xx:xx:xx    60       VMware, Inc.    
+  192.168.152.254   00:50:56:xx:xx:xx    60       VMware, Inc.    
 
 ---------------------
-Summary         : 3 captured ARP Req/Res packets from 3 hosts 
+Summary         : 5 captured ARP Req/Res packets from 5 hosts 
 Finished!
 ```
 ### Updates
-`v1.0.1 - 27/12/2023`
+`v1.0.1 - 27/12/2023` adding Size and improve scanning functionality
