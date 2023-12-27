@@ -16,9 +16,9 @@ if sys.version_info < (3, 0):
 
 
 def args():
-    parser = ArgumentParser()
+    parser = ArgumentParser(description="Python script to perform active ARP ping scan", )
     parser.add_argument("-r", "--range", dest="ip_range", help="Specify an ip address range. Example: "
-                                                               "--range 192.168.1.1/24")
+                                                               "--range 192.168.1.1/24", type=str)
     options = parser.parse_args()
     if not options.ip_range:
         parser.error(message="[-] Please specify valid ip address range, or type it correctly, ex: ---range "
