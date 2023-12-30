@@ -12,9 +12,9 @@ pip install scapy requests prettytable
 ```
 
 ## Screenshots
-- For Windows:<br>
+- For Windows:</br>
 ![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-windows.png)</br></br>
-- For Linux:<br>
+- For Linux:</br>
 ![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-linux.png)
 
 ## Usage
