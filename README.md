@@ -22,7 +22,7 @@ pip install scapy requests prettytable
 2. Open a terminal or command prompt and navigate to the directory where the script is located.
 3. Run the script with the following command:
 ```commandline
-python3 network_device_scanner.py --range <IP_range>
+python3 network_scanner.py --range <IP_range>
 ```
 4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.1/24.
 
