@@ -16,7 +16,7 @@ if sys.version_info < (3, 0):
 
 
 def args():
-    parser = ArgumentParser(description="------- Python Script to Perform Active ARP ping Scan -------")
+    parser = ArgumentParser(description="------- sMapper - Quickly Network Discovery Perform Active ARP ping Scan -------")
     parser.add_argument("-r", "--range", dest="ip_range", help="Specify an ip address range. Example: "
                                                                "--range 192.168.1.1/24", type=str)
     options = parser.parse_args()
@@ -52,9 +52,10 @@ def scan_network(ip_address, timeout=7):
 def main():
     try:
         option = args()
-        print("\n---------------------")
-        print("Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
-        print("Target subnet   : " + option.ip_range)
+        print("\nsMapper - Quickly Network Discovery - coded by Saher Muhamed")
+        print("---------------------")
+        print("🕰️ Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
+        print("⚔️ Target subnet   : " + option.ip_range)
         print("---------------------\n")
         x = PrettyTable(border=True, hrules=HEADER, vrules=NONE)
         x.field_names = ["IP", "MAC Address", "Size", "Hostname / Vendor"]
@@ -68,7 +69,7 @@ def main():
         print(x.get_string(
             sortby="IP") + "\n")  # print table with ascending order ex. 192.168.1.1, 192.168.1.2, .., 192.168.1.254
         print("---------------------")
-        print("Summary         : " + str(len(devices)) + " captured ARP Req/Res packets from " + str(
+        print("Summary            : " + str(len(devices)) + " captured ARP Req/Res packets from " + str(
             len(devices)) + " hosts" + " \nFinished!\n")
     except KeyboardInterrupt:
         print("\n[*] Detected 'ctrl + c' pressed, program terminated.\n")
@@ -77,3 +78,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
