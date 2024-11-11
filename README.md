@@ -51,5 +51,5 @@ Summary            : 3 captured ARP Req/Res packets from 3 hosts
 Finished!
 ```
 ### Updates
-`v1.0.1 - 27/12/2023` adding Size and improve scanning functionality
-`v1.1.0 - 11/11/2024` adding `--json or -j` optional switch to import the scan result into JSON format / increase scanning speed
+- `v1.0.1 - 27/12/2023` adding Size and improve scanning functionality
+- `v1.1.0 - 11/11/2024` adding `--json or -j` optional switch to import the scan result into JSON format / increase scanning speed
