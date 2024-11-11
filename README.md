@@ -13,7 +13,7 @@ pip install scapy requests prettytable
 
 ## Screenshots
 - **For Linux:**<br><br>
-![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot 2024-11-11-linux.png)
+![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202024-11-11-linux.png)
 
 ## Usage
 1. Clone the repository or download the script to your local machine.
