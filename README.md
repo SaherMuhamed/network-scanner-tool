@@ -12,10 +12,8 @@ pip install scapy requests prettytable
 ```
 
 ## Screenshots
-- **For Windows:**<br><br>
-![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-windows.png)</br></br>
 - **For Linux:**<br><br>
-![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%202023-12-27-linux.png)
+![](https://github.com/SaherMuhamed/network-scanner-tool/blob/master/screenshots/Screenshot%2024-11-11-linux.png)
 
 ## Usage
 1. Clone the repository or download the script to your local machine.
@@ -24,7 +22,7 @@ pip install scapy requests prettytable
 ```commandline
 python3 network_scanner.py --range <IP_range>
 ```
-4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.1/24.
+4. Replace <IP_range> with the IP range you want to scan, e.g., 192.168.1.0/24.
 
 ## Output
 The script generates a table displaying the following information for each discovered device:
@@ -37,22 +35,21 @@ The script generates a table displaying the following information for each disco
 ## Example output:
 
 ```text
----------------------
-Start time      : 27/12/2023 16:28:28 PM
-Target subnet   : 192.168.152.1/24
----------------------
+sMapper - Quickly Network Discovery - coded by Saher Muhamed
+═══════════════════════════════════════════
+🕰️  Start time      : 11/11/2024 22:01:42 PM
+🎯 Target subnet   : 10.20.14.0/24
+═══════════════════════════════════════════
 
-         IP            MAC Address      Size   Hostname / Vendor  
-------------------------------------------------------------------
-   192.168.152.1    00:50:56:xx:xx:xx    60       VMware, Inc.    
-  192.168.152.129   00:0c:29:xx:xx:xx    60       VMware, Inc.    
-  192.168.152.135   00:0c:29:xx:xx:xx    60       VMware, Inc.    
-   192.168.152.2    00:50:56:xx:xx:xx    60       VMware, Inc.    
-  192.168.152.254   00:50:56:xx:xx:xx    60       VMware, Inc.    
+       IP           MAC Address      Size   Hostname / Vendor  
+---------------------------------------------------------------
+   10.20.14.1    00:50:56:xx:xx:xx    60       VMware, Inc.    
+   10.20.14.2    00:50:56:xx:xx:xx    60       VMware, Inc.    
+  10.20.14.254   00:50:56:xx:xx:xx    60       VMware, Inc.    
 
----------------------
-Summary         : 5 captured ARP Req/Res packets from 5 hosts 
+Summary            : 3 captured ARP Req/Res packets from 3 hosts 
 Finished!
 ```
 ### Updates
 `v1.0.1 - 27/12/2023` adding Size and improve scanning functionality
+`v1.1.0 - 11/11/2024` adding `--json or -j` optional switch to import the scan result into JSON format / increase scanning speed
