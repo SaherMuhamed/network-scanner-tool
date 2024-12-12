@@ -36,19 +36,17 @@ The script generates a table displaying the following information for each disco
 
 ```text
 sMapper - Quickly Network Discovery - coded by Saher Muhamed
-═══════════════════════════════════════════
-🕰️  Start time      : 11/11/2024 22:01:42 PM
-🎯 Target subnet   : 10.20.14.0/24
-═══════════════════════════════════════════
+Target Subnet >>> 192.168.1.0/24
+_____________________________________________________________________________
+       IP          MAC Address	       Size         Hostname / Vendor           
+-----------------------------------------------------------------------------
+  192.168.1.1	  ec:75:3e:xx:xx:xx	        42	  HUAWEI TECHNOLOGIES CO.,LTD
+  192.168.1.7	  5a:69:7b:xx:xx:xx	        42	  Unknown
+  192.168.1.9	  b6:80:21:xx:xx:xx	        42	  Unknown
 
-       IP           MAC Address      Size   Hostname / Vendor  
----------------------------------------------------------------
-   10.20.14.1    00:50:56:xx:xx:xx    60       VMware, Inc.    
-   10.20.14.2    00:50:56:xx:xx:xx    60       VMware, Inc.    
-  10.20.14.254   00:50:56:xx:xx:xx    60       VMware, Inc.    
+ 3 captured ARP Req/Res packets, from 3 hosts.	Total size: 126
 
-Summary            : 3 captured ARP Req/Res packets from 3 hosts 
-Finished!
+C:\Users\Saher Mohamed\PycharmProjects\section-4-network-scanner>
 ```
 ### Updates
 - `v1.0.1 - 27/12/2023` adding Size and improve scanning functionality
