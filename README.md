@@ -40,9 +40,9 @@ Target Subnet >>> 192.168.1.0/24
 _____________________________________________________________________________
        IP          MAC Address	       Size         Hostname / Vendor           
 -----------------------------------------------------------------------------
-  192.168.1.1	ec:75:3e:9d:77:88	42	HUAWEI TECHNOLOGIES CO.,LTD
-  192.168.1.7	5a:69:7b:ca:46:75	42	Unknown
-  192.168.1.9	b6:80:21:69:67:fe	42	Unknown
+  192.168.1.1	ec:75:3e:xx:xx:xx	42	HUAWEI TECHNOLOGIES CO.,LTD
+  192.168.1.7	5a:69:7b:xx:xx:xx	42	Unknown
+  192.168.1.9	b6:80:21:xx:xx:xx	42	Unknown
 
  3 captured ARP Req/Res packets, from 3 hosts.	Total size: 126
 
