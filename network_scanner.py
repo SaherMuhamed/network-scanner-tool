@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
+
 import os
 import sys
-# import time
 import datetime as dt
 import requests
-from prettytable import PrettyTable, HEADER, NONE
 from argparse import ArgumentParser
 import scapy.all as scapy
 import json
@@ -42,7 +41,17 @@ def initial_clear_screen():
         os.system(command="clear")  # clean screen for Linux or macOS
 
 
-def scan_network(ip_address, timeout=7):
+def fetch_mac_address_vendor(mac):
+    try:
+        response = requests.get(url="https://www.macvendorlookup.com/api/v2/" + mac, headers=HEADERS)
+        manufacturer = response.json()[0].get("company")
+    except (requests.RequestException, requests.exceptions.ConnectionError):
+        manufacturer = "Unknown"
+
+    return manufacturer
+
+
+def scan_network(ip_address, timeout=7, json_output=False):
     arp_request = scapy.ARP(pdst=ip_address)  # create an ARP request
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")  # broadcast an ARP packet to all devices in the network
     broadcast_arp_packets = broadcast / arp_request  # combine these 2 packets together to send
@@ -50,17 +59,36 @@ def scan_network(ip_address, timeout=7):
     answered, unanswered = scapy.srp(broadcast_arp_packets, timeout=timeout,
                                      verbose=False)  # send packets to all devices
 
-    # extracting information from answered packets
-    devices_list = []
+    devices_list = []  # extracting information from answered packets
+    json_data = []
+
     for sent_packet, received_packet in answered:
-        # check if the packet contains an ARP layer
-        if scapy.ARP in received_packet:
-            device_info = {
-                "ip": received_packet[scapy.ARP].psrc,
-                "mac": received_packet[scapy.Ether].src,
-                "packet_size": len(received_packet)
-            }  # get the size of the packet
-            devices_list.append(device_info)
+        device_info = {
+            "ip": received_packet.psrc,
+            "mac": received_packet.src,
+            "packet_size": len(received_packet)  # get the size of the packet
+        }
+        devices_list.append(device_info)
+
+        manufacturer = fetch_mac_address_vendor(mac=received_packet[scapy.Ether].src)
+        print("  " + str(received_packet[scapy.ARP].psrc) + "\t" + str(received_packet[scapy.Ether].src) + "\t" + str(
+            len(received_packet)) + "\t" + manufacturer)
+
+        if json_output:
+            json_data.append({
+                "time": str(dt.datetime.now().strftime("%H:%M:%S %p")),
+                "date": str(dt.datetime.now().strftime("%d/%m/%Y %A")),
+                "devices_information": {
+                    "ip address": received_packet[scapy.ARP].psrc,
+                    "mac address": received_packet[scapy.Ether].src,
+                    "packet size": len(received_packet),
+                    "manufacturer": manufacturer,
+                }
+            })
+
+    if json_output:
+        with open(file="scan_results.json", mode="w") as f:
+            json.dump(json_data, f, indent=4)
 
     return devices_list
 
@@ -68,44 +96,16 @@ def scan_network(ip_address, timeout=7):
 def main():
     option = args()
     print("\nsMapper - Quickly Network Discovery - coded by Saher Muhamed")
-    print("═══════════════════════════════════════════")
-    print("🕰️  Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
-    print("🎯 Target subnet   : " + option.ip_range)
-    print("═══════════════════════════════════════════\n")
-    x = PrettyTable(border=True, hrules=HEADER, vrules=NONE)
-    x.field_names = ["IP", "MAC Address", "Size", "Hostname / Vendor"]
-    devices = scan_network(ip_address=option.ip_range)  # start scan the target network
-    json_data = []
+    print("Target Subnet >>> " + option.ip_range)
+    print("_____________________________________________________________________________")
+    print("       IP          MAC Address\t       Size         Hostname / Vendor           ")
+    print("-----------------------------------------------------------------------------")
 
-    for counter, device in enumerate(devices, 1):
-        # response = requests.get(url="https://api.macvendors.com/" + device["mac"])  # old api call
-        response = requests.get(url="https://www.macvendorlookup.com/api/v2/" + device["mac"],
-                                timeout=7,
-                                headers=HEADERS)
-        # time.sleep(0.7)  # slow down the requests to api
-        x.add_rows([[device["ip"], device["mac"], device["packet_size"], response.json()[0]["company"]]])
+    devices = scan_network(ip_address=option.ip_range, json_output=option.json_output)  # start scan the target network
+    packet_sizes = [_['packet_size'] for _ in devices]
 
-        if option.json_output:
-            json_data.append({
-                "time": str(dt.datetime.now().strftime("%H:%M:%S %p")),
-                "date": str(dt.datetime.now().strftime("%d/%m/%Y %A")),
-                "devices_information": {
-                    "id": counter,
-                    "ip address": device["ip"],
-                    "mac address": device["mac"],
-                    "packet size": device["packet_size"],
-                    "manufacturer": response.json()[0]["company"],
-                }
-            })
-
-    print(x.get_string(
-        sortby="IP") + "\n")  # print table with ascending order ex. 192.168.1.1, 192.168.1.2, .., 192.168.1.254
-    print("Summary            : " + str(len(devices)) + " captured ARP Req/Res packets from " + str(
-        len(devices)) + " hosts" + " \nFinished!\n")
-
-    if option.json_output:
-        with open(file="scan_results.json", mode="w") as f:
-            json.dump(json_data, f, indent=4)
+    print("\n " + str(len(devices)) + " captured ARP Req/Res packets, from " +
+          str(len(devices)) + " hosts." + "\tTotal size: " + str(sum(packet_sizes)) + "\n")
 
 
 if __name__ == "__main__":
